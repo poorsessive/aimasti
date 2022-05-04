@@ -1,0 +1,48 @@
+from sys import maxsize
+from itertools import permutations
+v=4
+ 
+def tsm(graph,s):
+    
+    vertex=[]
+    
+    for i in range(v):
+        if i!=s:
+            vertex.append(i)
+    
+    pvertex=[0,vertex]
+    print("vertex",pvertex)
+    min_path=maxsize
+    next_p=permutations(vertex)
+    
+    for i in next_p:
+        current_pw=0
+        
+        k=s
+        print("Path",i,"-",end=" ")
+        for j in i:
+            
+            print(graph[k][j],end=" ")
+            current_pw+=graph[k][j]
+           
+            
+            k=j
+        
+        print(graph[k][s],end=" ")
+        current_pw+= graph[k][s]
+        print("- Weight:",current_pw)
+ 
+        
+        min_path = min(min_path, current_pw)
+       
+        
+    
+    return min_path
+    
+if __name__ == "__main__":
+    
+      graph = [[0, 10, 15, 20], [10, 0, 35, 25],
+            [15, 35, 0, 30], [20, 25, 30, 0]]
+            
+      s = 0
+      print("\nMinimum weight of Hamiltonian Cycle :",tsm(graph, s))
